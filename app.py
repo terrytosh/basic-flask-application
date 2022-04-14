@@ -1,14 +1,22 @@
-from flask import Flask
+from flask import Flask, redirect, url_for, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    return "Hello World!"
+def home():
+    return render_template("index.html")
 
 @app.route('/terry')
 def terry():
     return "Hello Terry!"
+
+@app.route("/<name>")
+def user(name):
+    return f"Hello {name}!"
+
+@app.route("/admin")
+def admin():
+    return redirect(url_for("home"));
 
 if __name__ == '__main__':
     app.run(debug=True)
